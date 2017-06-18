@@ -50,6 +50,33 @@ var PinAPI = function PinAPI(options) {
     });
   };
 
+  this.fetchAllCustomers = function (pageIndex) {
+    return new Promise(function (resolve, reject) {
+      var req = _request2.default.get({
+        url: _this.apiUrl + '/' + apiVersion + '/customers',
+        body: pageIndex,
+        json: true
+      }, function (error, response, body) {
+        if (error) _this.handleErrorResponse(error, reject);else resolve(body);
+      });
+
+      _this.handleAuthentication(req);
+    });
+  };
+
+  this.fetchCustomer = function (token) {
+    return new Promise(function (resolve, reject) {
+      var req = _request2.default.get({
+        url: _this.apiUrl + '/' + apiVersion + '/customers/' + token,
+        json: true
+      }, function (error, response, body) {
+        if (error) _this.handleErrorResponse(error, reject);else resolve(body.response);
+      });
+
+      _this.handleAuthentication(req);
+    });
+  };
+
   this.key = options.key;
   this.live = options.live;
   this.setApiUrl();
