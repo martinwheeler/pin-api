@@ -1,7 +1,7 @@
 import PinAPI from '../lib'
+import { key } from '../lib/key'
 import moment from 'moment'
 
-const key = ''
 const live = false
 const api = new PinAPI({key, live})
 

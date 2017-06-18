@@ -12,9 +12,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-require('babel-core/register');
-require('babel-polyfill');
-
 var apiVersion = '1';
 var liveUrl = 'https://api.pin.net.au';
 var testUrl = 'https://test-api.pin.net.au';
