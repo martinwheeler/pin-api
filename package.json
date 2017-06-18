@@ -1,0 +1,9 @@
+{
+  "name": "pin-api",
+  "version": "1.0.0",
+  "description": "Pin Payments API wrapper",
+  "main": "index.js",
+  "repository": "https://github.com/martinwheeler/pin-api.git",
+  "author": "Martin Wheeler",
+  "license": "MIT"
+}
