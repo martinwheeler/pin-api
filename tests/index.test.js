@@ -68,3 +68,24 @@ test('fetching a created customer', () => {
 			console.log(error)
 		})
 })
+
+test('updating a customer returns changed value', () => {
+	expect.assertions(1)
+	return api.updateCustomer(testCusomterToken, {
+		card: {
+			...testCard,
+			name: 'Mrs Robot'
+		}
+	})
+		.then((response) => {
+			expect(response.card.name).toEqual('Mrs Robot')
+		})
+});
+
+test('delete a customer returns 204', () => {
+	expect.assertions(1)
+	return api.deleteCustomer(testCusomterToken)
+		.then((response) => {
+			expect(response).toBeTruthy()
+		})
+})

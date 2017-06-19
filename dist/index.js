@@ -77,6 +77,37 @@ var PinAPI = function PinAPI(options) {
     });
   };
 
+  this.updateCustomer = function (token, body) {
+    return new Promise(function (resolve, reject) {
+      var req = _request2.default.put({
+        url: _this.apiUrl + '/' + apiVersion + '/customers/' + token,
+        body: body,
+        json: true
+      }, function (error, response, body) {
+        if (error) _this.handleErrorResponse(error, reject);else resolve(body.response);
+      });
+
+      _this.handleAuthentication(req);
+    });
+  };
+
+  this.deleteCustomer = function (token) {
+    return new Promise(function (resolve, reject) {
+      var req = _request2.default.delete({
+        url: _this.apiUrl + '/' + apiVersion + '/customers/' + token,
+        json: true
+      }, function (error, response, body) {
+        if (error) {
+          _this.handleErrorResponse(error, reject);
+        } else {
+          if (response.statusCode === 204) resolve(true);else reject(false);
+        }
+      });
+
+      _this.handleAuthentication(req);
+    });
+  };
+
   this.key = options.key;
   this.live = options.live;
   this.setApiUrl();
