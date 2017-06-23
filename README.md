@@ -2,7 +2,7 @@
 
 This is a simple API wrapper for [pin.net.au](https://pin.net.au/)
 
-[![Build Status](https://circleci.com/gh/martinwheeler/pin-api.svg?style=shield&circle-token=:circle-token)]
+![Build Status](https://circleci.com/gh/martinwheeler/pin-api.svg?style=shield&circle-token=:circle-token)
 
 # Using Jest
 
