@@ -1,3 +1,5 @@
 machine:
+  environment:
+    TEST_REPORT_PATH: $CIRCLE_TEST_REPORTS/junit
   node:
     version: 7.9.0
