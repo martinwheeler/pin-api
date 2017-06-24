@@ -7,8 +7,9 @@
   "author": "Martin Wheeler",
   "license": "MIT",
   "scripts": {
-    "test": "yarn build && jest",
-    "build": "babel lib/index.js --out-file dist/index.js"
+    "test": "yarn build && jest --watch",
+    "build": "babel lib/index.js --out-file dist/index.js",
+    "build:jest": "babel jest.config.js --out-file jest.config.dist.js"
   },
   "dependencies": {
     "babel-core": "^6.25.0",
@@ -27,9 +28,20 @@
     "moment": "^2.18.1"
   },
   "jest": {
+    "verbose": true,
+    "bail": true,
+    "notify": true,
+    "collectCoverage": true,
+    "modulePathIgnorePatterns": [
+      "/node_modules/"
+    ],
     "transform": {
       ".*": "<rootDir>/node_modules/babel-jest"
     },
-    "testResultsProcessor": "./node_modules/jest-junit-reporter"
+    "testUrl": "file://<rootDir>",
+    "testResultsProcessor": "./node_modules/jest-junit-reporter",
+    "setupFiles": [
+      "./jest.setup.js"
+    ]
   }
 }
