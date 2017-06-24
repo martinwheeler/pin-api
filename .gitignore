@@ -1,3 +1,11 @@
-/node_modules
+# NPM
+node_modules/
+
+# Editor
 .vscode
+
+# CI
 test-report.xml
+
+# Jest
+coverage/
