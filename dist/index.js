@@ -16,6 +16,16 @@ var apiVersion = '1';
 var liveUrl = 'https://api.pin.net.au';
 var testUrl = 'https://test-api.pin.net.au';
 
+var MODE = {
+  POST: 'post',
+  GET: 'get'
+};
+
+var ENDPOINT = {
+  CUSTOMER: 'customers'
+
+};
+
 var PinAPI = function PinAPI(options) {
   var _this = this;
 
@@ -36,44 +46,53 @@ var PinAPI = function PinAPI(options) {
     reject(error);
   };
 
-  this.createCustomer = function (body, cb) {
+  this.makeRequest = function (_ref) {
+    var token = _ref.token,
+        body = _ref.body,
+        endpoint = _ref.endpoint,
+        mode = _ref.mode;
+
+    var url = _this.apiUrl + '/' + apiVersion + '/' + endpoint,
+        json = true;
+
+    if (token) {
+      url += '/' + token;
+    }
+
     return new Promise(function (resolve, reject) {
-      var req = _request2.default.post({
-        url: _this.apiUrl + '/' + apiVersion + '/customers',
-        body: body,
-        json: true
+      var newRequest = _request2.default[mode]({
+        url: url,
+        json: json,
+        body: body
       }, function (error, response, body) {
         if (error) _this.handleErrorResponse(error, reject);else resolve(body.response);
       });
 
-      _this.handleAuthentication(req);
+      _this.handleAuthentication(newRequest);
     });
   };
 
-  this.fetchAllCustomers = function (pageIndex) {
-    return new Promise(function (resolve, reject) {
-      var req = _request2.default.get({
-        url: _this.apiUrl + '/' + apiVersion + '/customers',
-        body: pageIndex,
-        json: true
-      }, function (error, response, body) {
-        if (error) _this.handleErrorResponse(error, reject);else resolve(body);
-      });
+  this.createCustomer = function (body) {
+    return _this.makeRequest({
+      body: body,
+      endpoint: ENDPOINT.CUSTOMER,
+      mode: MODE.POST
+    });
+  };
 
-      _this.handleAuthentication(req);
+  this.fetchAllCustomers = function (body) {
+    return _this.makeRequest({
+      body: body,
+      endpoint: ENDPOINT.CUSTOMER,
+      mode: MODE.GET
     });
   };
 
   this.fetchCustomer = function (token) {
-    return new Promise(function (resolve, reject) {
-      var req = _request2.default.get({
-        url: _this.apiUrl + '/' + apiVersion + '/customers/' + token,
-        json: true
-      }, function (error, response, body) {
-        if (error) _this.handleErrorResponse(error, reject);else resolve(body.response);
-      });
-
-      _this.handleAuthentication(req);
+    return _this.makeRequest({
+      token: token,
+      endpoint: ENDPOINT.CUSTOMER,
+      mode: MODE.GET
     });
   };
 

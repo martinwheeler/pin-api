@@ -30,16 +30,16 @@
   },
   "jest": {
     "verbose": true,
-    "bail": true,
-    "notify": true,
-    "collectCoverage": true,
+    "bail": false,
+    "notify": false,
+    "collectCoverage": false,
     "modulePathIgnorePatterns": [
       "/node_modules/"
     ],
     "transform": {
       ".*": "<rootDir>/node_modules/babel-jest"
     },
-    "testUrl": "file://<rootDir>",
+    "testURL": "file://<rootDir>",
     "testResultsProcessor": "./node_modules/jest-junit-reporter",
     "setupFiles": [
       "./jest.setup.js"
