@@ -18,7 +18,9 @@ var testUrl = 'https://test-api.pin.net.au';
 
 var MODE = {
   POST: 'post',
-  GET: 'get'
+  GET: 'get',
+  PUT: 'put',
+  DELETE: 'delete'
 };
 
 var ENDPOINT = {
@@ -46,6 +48,16 @@ var PinAPI = function PinAPI(options) {
     reject(error);
   };
 
+  this.handleSuccessResponse = function (response, body, resolve) {
+    var newResponse = body;
+
+    if (body.response) {
+      newResponse = body.response;
+    }
+
+    resolve(newResponse);
+  };
+
   this.makeRequest = function (_ref) {
     var token = _ref.token,
         body = _ref.body,
@@ -65,7 +77,7 @@ var PinAPI = function PinAPI(options) {
         json: json,
         body: body
       }, function (error, response, body) {
-        if (error) _this.handleErrorResponse(error, reject);else resolve(body.response);
+        if (error) _this.handleErrorResponse(error, reject);else _this.handleSuccessResponse(response, body, resolve);
       });
 
       _this.handleAuthentication(newRequest);
@@ -97,33 +109,19 @@ var PinAPI = function PinAPI(options) {
   };
 
   this.updateCustomer = function (token, body) {
-    return new Promise(function (resolve, reject) {
-      var req = _request2.default.put({
-        url: _this.apiUrl + '/' + apiVersion + '/customers/' + token,
-        body: body,
-        json: true
-      }, function (error, response, body) {
-        if (error) _this.handleErrorResponse(error, reject);else resolve(body.response);
-      });
-
-      _this.handleAuthentication(req);
+    return _this.makeRequest({
+      token: token,
+      body: body,
+      endpoint: ENDPOINT.CUSTOMER,
+      mode: MODE.PUT
     });
   };
 
   this.deleteCustomer = function (token) {
-    return new Promise(function (resolve, reject) {
-      var req = _request2.default.delete({
-        url: _this.apiUrl + '/' + apiVersion + '/customers/' + token,
-        json: true
-      }, function (error, response, body) {
-        if (error) {
-          _this.handleErrorResponse(error, reject);
-        } else {
-          if (response.statusCode === 204) resolve(true);else reject(false);
-        }
-      });
-
-      _this.handleAuthentication(req);
+    return _this.makeRequest({
+      token: token,
+      endpoint: ENDPOINT.CUSTOMER,
+      mode: MODE.DELETE
     });
   };
 
