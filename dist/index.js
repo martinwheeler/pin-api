@@ -8,6 +8,10 @@ var _request = require('request');
 
 var _request2 = _interopRequireDefault(_request);
 
+var _undefsafe = require('undefsafe');
+
+var _undefsafe2 = _interopRequireDefault(_undefsafe);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -24,9 +28,11 @@ var MODE = {
 };
 
 var ENDPOINT = {
-  CUSTOMER: 'customers'
-
+  CUSTOMER: 'customers',
+  CHARGES: 'charges'
 };
+
+var DELETE = 204;
 
 var PinAPI = function PinAPI(options) {
   var _this = this;
@@ -51,8 +57,12 @@ var PinAPI = function PinAPI(options) {
   this.handleSuccessResponse = function (response, body, resolve) {
     var newResponse = body;
 
-    if (body.response) {
+    if ((0, _undefsafe2.default)(body, 'response')) {
       newResponse = body.response;
+    }
+
+    if (response.statusCode === DELETE) {
+      newResponse = { success: true };
     }
 
     resolve(newResponse);
@@ -64,11 +74,15 @@ var PinAPI = function PinAPI(options) {
         endpoint = _ref.endpoint,
         mode = _ref.mode;
 
-    var url = _this.apiUrl + '/' + apiVersion + '/' + endpoint,
+    var url = _this.apiUrl + '/' + apiVersion + '/' + endpoint.main,
         json = true;
 
     if (token) {
       url += '/' + token;
+    }
+
+    if ((0, _undefsafe2.default)(endpoint, 'secondary')) {
+      url += '/' + endpoint.secondary;
     }
 
     return new Promise(function (resolve, reject) {
@@ -87,7 +101,9 @@ var PinAPI = function PinAPI(options) {
   this.createCustomer = function (body) {
     return _this.makeRequest({
       body: body,
-      endpoint: ENDPOINT.CUSTOMER,
+      endpoint: {
+        main: ENDPOINT.CUSTOMER
+      },
       mode: MODE.POST
     });
   };
@@ -95,7 +111,9 @@ var PinAPI = function PinAPI(options) {
   this.fetchAllCustomers = function (body) {
     return _this.makeRequest({
       body: body,
-      endpoint: ENDPOINT.CUSTOMER,
+      endpoint: {
+        main: ENDPOINT.CUSTOMER
+      },
       mode: MODE.GET
     });
   };
@@ -103,7 +121,9 @@ var PinAPI = function PinAPI(options) {
   this.fetchCustomer = function (token) {
     return _this.makeRequest({
       token: token,
-      endpoint: ENDPOINT.CUSTOMER,
+      endpoint: {
+        main: ENDPOINT.CUSTOMER
+      },
       mode: MODE.GET
     });
   };
@@ -112,7 +132,9 @@ var PinAPI = function PinAPI(options) {
     return _this.makeRequest({
       token: token,
       body: body,
-      endpoint: ENDPOINT.CUSTOMER,
+      endpoint: {
+        main: ENDPOINT.CUSTOMER
+      },
       mode: MODE.PUT
     });
   };
@@ -120,8 +142,21 @@ var PinAPI = function PinAPI(options) {
   this.deleteCustomer = function (token) {
     return _this.makeRequest({
       token: token,
-      endpoint: ENDPOINT.CUSTOMER,
+      endpoint: {
+        main: ENDPOINT.CUSTOMER
+      },
       mode: MODE.DELETE
+    });
+  };
+
+  this.customerCharges = function (token) {
+    return _this.makeRequest({
+      token: token,
+      endpoint: {
+        main: ENDPOINT.CUSTOMER,
+        secondary: ENDPOINT.CHARGES
+      },
+      mode: MODE.GET
     });
   };
 

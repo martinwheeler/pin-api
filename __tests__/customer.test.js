@@ -12,7 +12,7 @@ describe('Customer Endpoints', () => {
 
     return api.createCustomer(testCustomer)
       .then((response) => {
-        testCusomterToken = response.token
+        testCustomerToken = response.token
         expect(response.card.name).toEqual(expected)
       })
       .catch((error) => {
@@ -28,17 +28,17 @@ describe('Customer Endpoints', () => {
     return api.fetchAllCustomers({
       page: 1
     })
-      .then((response) => {
-        expect(typeof response).toBe('object')
-        expect(response.length).toBeGreaterThanOrEqual(25)
+      .then((data) => {
+        expect(typeof data).toBe('object')
+        expect(data.response.length).toBeGreaterThanOrEqual(25)
       })
   })
 
   test('fetching a created customer', () => {
     expect.assertions(2)
-    return api.fetchCustomer(testCusomterToken)
+    return api.fetchCustomer(testCustomerToken)
       .then((response) => {
-        expect(response.token).toEqual(testCusomterToken)
+        expect(response.token).toEqual(testCustomerToken)
         expect(response).toBeDefined()
       })
       .catch((error) => {
@@ -48,7 +48,7 @@ describe('Customer Endpoints', () => {
 
   test('updating a customer returns changed value', () => {
     expect.assertions(1)
-    return api.updateCustomer(testCusomterToken, {
+    return api.updateCustomer(testCustomerToken, {
       card: {
         ...testCard,
         name: 'Mrs Robot'
@@ -59,11 +59,35 @@ describe('Customer Endpoints', () => {
       })
   });
 
+  test('can retrieve a page from customers charges', () => {
+    const actual = api.customerCharges(testCustomerToken);
+    const expected = {
+      "response": [],
+      "count": 0,
+      "pagination": {
+          "current": 1,
+          "previous": null,
+          "next": null,
+          "per_page": 25,
+          "pages": 0,
+          "count": 0
+      }
+    }
+
+    console.log(testCustomerToken)
+
+    expect.assertions(1)
+
+    return actual.then((response) => {
+      expect(response).toEqual(expected)
+    });
+  })
+
   test('delete a customer returns 204', () => {
     expect.assertions(1)
-    return api.deleteCustomer(testCusomterToken)
+    return api.deleteCustomer(testCustomerToken)
       .then((response) => {
-        expect(response).toBeTruthy()
+        expect(response.success).toBeTruthy()
       })
   })
 })

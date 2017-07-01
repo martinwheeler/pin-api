@@ -20,4 +20,4 @@ global.testCustomer = {
 	card: testCard
 }
 
-global.testCusomterToken = undefined;
+global.testCustomerToken = undefined;
