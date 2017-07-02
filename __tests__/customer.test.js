@@ -9,7 +9,7 @@ const api = new PinAPI({
   live
 })
 
-describe.skip('Customer Endpoints', () => {
+describe('Customer Endpoints', () => {
   test('create a customer returns the customer', () => {
     const expected = testCard.name
 
