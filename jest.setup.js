@@ -1,6 +1,6 @@
 var moment = require('moment')
 
-var plusOneYear = moment().add(1, "year").format("YYYY")
+global.plusOneYear = moment().add(1, "year").format("YYYY")
 
 global.testCard = {
 	number: 5520000000000000,
@@ -15,9 +15,19 @@ global.testCard = {
 	address_country: 'AU'
 }
 
+global.testIPAddress = '203.192.1.172';
+
+global.testCharge = {
+	description: '400 fidget spinners',
+	amount: 6000,
+	email: 'roland@pint.net.au',
+	ip_address: testIPAddress,
+	card: testCard
+}
+
 global.testCustomer = {
 	email: 'roland@pin.net.au',
-	card: global.testCard
+	card: testCard
 }
 
 global.testCustomerToken = undefined;
