@@ -9,3 +9,6 @@ test-report.xml
 
 # Jest
 coverage/
+
+#ENV
+.env

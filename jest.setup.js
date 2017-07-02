@@ -1,4 +1,5 @@
 var moment = require('moment')
+require('dotenv').config()
 
 global.plusOneYear = moment().add(1, "year").format("YYYY")
 
