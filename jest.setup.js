@@ -17,7 +17,8 @@ global.testCard = {
 
 global.testCustomer = {
 	email: 'roland@pin.net.au',
-	card: testCard
+	card: global.testCard
 }
 
 global.testCustomerToken = undefined;
+global.testCardToken = undefined;
