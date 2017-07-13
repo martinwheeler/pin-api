@@ -18,6 +18,13 @@ global.testCard = {
 
 global.testIPAddress = '203.192.1.172';
 
+global.testCharge = {
+	description: '400 fidget spinners',
+	amount: 6000,
+	email: 'roland@pin.net.au',
+	ip_address: testIPAddress
+}
+
 global.testChargeWithCard = {
 	description: '400 fidget spinners',
 	amount: 6000,
