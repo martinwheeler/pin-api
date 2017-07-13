@@ -11,7 +11,7 @@ const api = new PinAPI({
 
 describe('Charges Endpoints', () => {
   test('creating a charge with a complete card object', () => {
-    const actual = api.createCharge(testCharge)
+    const actual = api.createCharge(testChargeWithCard)
     const expected = {
       "amount": 6000,
       "amount_refunded": 0,
@@ -36,7 +36,7 @@ describe('Charges Endpoints', () => {
       "created_at": expect.any(String),
       "currency": "AUD",
       "description": "400 fidget spinners",
-      "email": "roland@pint.net.au",
+      "email": "roland@pin.net.au",
       "error_message": null,
       "ip_address": testIPAddress,
       "merchant_entitlement": 5865,
