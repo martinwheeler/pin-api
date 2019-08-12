@@ -1,9 +1,34 @@
-# Pin API Wrapper
+<h1 align="center">Welcome to pin-api 👋</h1>
+<p>
+  <img alt="Version" src="https://img.shields.io/npm/v/pin-api.svg">
+</p>
 
-This is a simple API wrapper for [pin.net.au](https://pin.net.au/)
+> Pin Payments API wrapper
 
-[![Build Status](https://circleci.com/gh/martinwheeler/pin-api.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/martinwheeler/pin-api)
+## Install
 
-# Using Jest
+```sh
+yarn install
+```
 
-Make a copy of lib/key.example.js as lib/key.js and input your key for testing the library.
+## Run tests
+
+```sh
+yarn test
+```
+
+## Author
+
+👤 **Martin Wheeler**
+
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/martinwheeler/pin-api/issues).
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+***
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
