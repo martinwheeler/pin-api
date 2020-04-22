@@ -29,6 +29,24 @@ yarn test
 
 Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/martinwheeler/pin-api/issues).
 
+## 🗺 Road Map
+
+- [ ] Add utils for all endpoints available
+  - [ ] Charges
+  - [ ] Customers
+  - [ ] Refunds
+  - [ ] Cards
+  - [ ] Recipients
+  - [ ] Transfers
+  - [ ] Balance
+  - [ ] Bank Accounts
+  - [ ] Events
+  - [ ] Webhook Endpoints
+  - [ ] Webhooks
+  - [ ] Plans
+  - [ ] Subscriptions
+- [ ] Update exiting util naming format to match that of Pin's endpoints
+
 ## Show your support
 
 Give a ⭐️ if this project helped you!
